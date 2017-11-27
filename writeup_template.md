@@ -1,21 +1,34 @@
-## Writeup Template
-
-### You can use this file as a template for your writeup if you want to submit it as a markdown file, but feel free to use some other method and submit a pdf if you prefer.
+## Project 4: Advanced Lane Line Detection
 
 ---
+![Final outcome](Folder_for_writeup/sample_result.gif)
 
-**Advanced Lane Finding Project**
+**Project Goals**
 
-The goals / steps of this project are the following:
+The goal of this project is to develop a pipeline to process a video stream from the center camera of a car and output an annotated video which identifies:
 
-* Compute the camera calibration matrix and distortion coefficients given a set of chessboard images.
-* Apply a distortion correction to raw images.
-* Use color transforms, gradients, etc., to create a thresholded binary image.
-* Apply a perspective transform to rectify binary image ("birds-eye view").
-* Detect lane pixels and fit to find the lane boundary.
-* Determine the curvature of the lane and vehicle position with respect to center.
-* Warp the detected lane boundaries back onto the original image.
-* Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position.
+1. The positions of the lane lines
+2. The location of the vehicle relative to the center of the lane
+3. The radius of curvature of the road
+
+The steps that I followed in this project are the following:
+
+**Step 1:** Apply distortion correction using a calculated camera calibration matrix and distortion coefficients.    
+**Step 2:** Apply a perspective transformation to warp the image to a birds eye view perspective of the lane lines.    
+**Step 3:** Apply color thresholds to create a binary image which isolates the pixels representing lane lines.      
+**Step 4:** Identify the lane line pixels and fit polynomials to the lane boundaries.              
+**Step 5:** Determine curvature of the lane and vehicle position with respect to center.         
+**Step 6:** Warp the detected lane boundaries back onto the original image.                
+**Step 7:** Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position.         
+**Step 8:** Build a video processing pipeline with all the above steps         
+
+I have used the following software/libraries in this project
+
+1. Python 3.5
+2. Numpy
+3. OpenCV
+4. Matplotlib
+5. Moviepy
 
 [//]: # (Image References)
 
