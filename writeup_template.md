@@ -18,7 +18,7 @@ The steps that I followed in this project are the following:
 **Step 4:** Identify the lane line pixels and fit polynomials to the lane boundaries.              
 **Step 5:** Determine curvature of the lane and vehicle position with respect to center.         
 **Step 6:** Warp the detected lane boundaries back onto the original image.                
-**Step 7:** Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position.         
+**Step 7:** Output visual display of the lane boundaries and estimation of lane curvature and vehicle position.         
 **Step 8:** Build a video processing pipeline with all the above steps         
 
 I have used the following software/libraries in this project
@@ -53,7 +53,7 @@ In this step I defined a function **hawk_eye_view()** that applies ```cv2.warpPe
 
 ```cv2.warpPerspective``` takes a matrix of four source points on the undistorted image and remaps them to four destination points on the warped image. The source and destination points were selected manually by visualizing the locations of the lane lines on a series of test images.
 
-![Chess board Corners](Folder_for_writeup/Orig_and_Perspective_transformed_img.png)
+![Perspective Transform](Folder_for_writeup/Orig_and_Perspective_transformed_img.png)
 
 ### Step 3: Apply Color Thresholds
 
@@ -65,7 +65,7 @@ In this step I converted the warped image to a different color space and created
 
 Hence I am using a combined binary threshold with a combination of both L channel from LUV and B channel from LAB color space to identify both the lane lines.
 
-![Chess board Corners](Folder_for_writeup/Binary_Threshold_img.png)
+![Binary Threshold](Folder_for_writeup/Binary_Threshold_img.png)
 
 ### Steps 4,5,6: Fitting a polynomial to the lane lines, calculating vehicle position and radius of curvature
 
@@ -94,7 +94,17 @@ right_curverad = ((1 + (2*right_fit_cr[0]*np.max(lefty) + right_fit_cr[1])**2)**
                                 /np.absolute(2*right_fit_cr[0])
 ```
 
-The final radius of curvature was taken by average the left and right curve radiuses.
+The final radius of curvature was taken by average the left and right curve radii.
+
+The equation for calculating radius of curvature was discovered at this page: [http://www.intmath.com/applications-differentiation/8-radius-curvature.php]
+
+### Step 7: Output visual display of the lane boundaries and estimation of lane curvature and vehicle position.
+
+In this step I processed the images to plot the polynomials on to the warped image, filled the space between the polynomials to highlight the lane that the car is in, used inverse perspective trasformation to unwarp the image from birds eye view back to its original perspective, and printed the distance from center and radius of curvature on to the final annotated image.
+
+![Fill Lane image](Folder_for_writeup/Fill_Lane_img.png)
+
+
 
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
