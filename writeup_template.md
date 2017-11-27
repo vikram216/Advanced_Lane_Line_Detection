@@ -47,16 +47,13 @@ These Intrinsic and Extrinsic parameters are used in ```cv2.undistort``` to get 
 
 ![Undistorted](Folder_for_writeup/Orig_and_undistorted_img.png)
 
+### Step 2: Perspective Transformation
 
-[//]: # (Image References)
+In this step I defined a function **hawk_eye_view()** that applies ```cv2.warpPerspective``` to the undistorted image to get a bird's eye view of the road that focuses only on the lane lines and displays them in such a way that they appear to be relatively parallel to eachother. This will make it easier later on to fit polynomials to the lane lines and measure the curvature.
 
-[image1]: ./examples/undistort_output.png "Undistorted"
-[image2]: ./test_images/test1.jpg "Road Transformed"
-[image3]: ./examples/binary_combo_example.jpg "Binary Example"
-[image4]: ./examples/warped_straight_lines.jpg "Warp Example"
-[image5]: ./examples/color_fit_lines.jpg "Fit Visual"
-[image6]: ./examples/example_output.jpg "Output"
-[video1]: ./project_video.mp4 "Video"
+```cv2.warpPerspective``` takes a matrix of four source points on the undistorted image and remaps them to four destination points on the warped image. The source and destination points were selected manually by visualizing the locations of the lane lines on a series of test images.
+
+![Chess board Corners](Folder_for_writeup/Orig_and_Perspective_transformed_img.png)
 
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
 
