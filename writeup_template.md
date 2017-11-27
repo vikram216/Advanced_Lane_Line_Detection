@@ -104,6 +104,20 @@ In this step I processed the images to plot the polynomials on to the warped ima
 
 ![Fill Lane image](Folder_for_writeup/Fill_Lane_img.png)
 
+### Step 8: Build a Video steam processing pipeline
+
+After establishing a pipeline to process still images, the final step was to expand the pipeline to process videos frame-by-frame, to simulate what it would be like to process an image stream in real time on an actual vehicle.
+
+My goal in developing a video processing pipeline was to create as smooth of an output as possible. To achieve this, I created a class called Line with all the above steps modularized as functions and instantiated two objects of this class one each for the left and right lane lines and stored features of each lane for averaging across frames.
+
+The video pipeline first checks whether or not the lane was detected in the previous frame. If it was, then it only checks for lane pixels in close proximity to the polynomial calculated in the previous frame. This way, the pipeline does not need to scan the entire image, and the pixels detected have a high confidence of belonging to the lane line because they are based on the location of the lane in the previous frame.
+
+If at any time, the pipeline fails to detect lane pixels based on the the previous frame, it will go back in to blind search mode and scan the entire binary image for nonzero pixels to represent the lanes.
+
+In order to make the output smooth I chose to average the coefficients of the polynomials for each lane line over a span of 10 frames. The gif below is the result of my pipeline running on the test video provided for the project.
+
+![Project outcome](Folder_for_writeup/result.gif)
+
 
 
 
