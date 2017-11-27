@@ -55,6 +55,48 @@ In this step I defined a function **hawk_eye_view()** that applies ```cv2.warpPe
 
 ![Chess board Corners](Folder_for_writeup/Orig_and_Perspective_transformed_img.png)
 
+### Step 3: Apply Color Thresholds
+
+In this step I converted the warped image to a different color space and created binary thresholded images which highlights only the lane lines. The following color spaces and thresholds are working fine for these images in identifying the lane lines.
+
+1. L Channel from LUV color space with a min threshold of 225 and max threshold of 255 is picking up the white lane lines perfectly but completely missing yellow lane lines.
+
+2. B Channel from LAB color space with a min threshold of 155 and max threshold of 200 is picking up the yellow lane lines perfectly but completely missing white lane lines.
+
+Hence I am using a combined binary threshold with a combination of both L channel from LUV and B channel from LAB color space to identify both the lane lines.
+
+![Chess board Corners](Folder_for_writeup/Binary_Threshold_img.png)
+
+### Steps 4,5,6: Fitting a polynomial to the lane lines, calculating vehicle position and radius of curvature
+
+After applying color thresholds for the image, I used the following approach to fit a polynomial for the detected lane line
+
+1. Identified peaks in a histogram of the image to determine location of lane lines.
+2. Identified all non zero pixels around histogram peaks using the numpy function ```numpy.nonzero()```
+3. Fitted a second order polynomial to each lane using the numpy function ```numpy.polyfit()```
+
+After fitting the polynomials I was able to calculate the position of the vehicle with respect to center with the following calculations:
+
+1. Calculated the average of the x intercepts from each of the two polynomials ```position = (rightx_int+leftx_int)/2```   
+2. Calculated the distance from center by taking the absolute value of the vehicle position minus the halfway point along the horizontal axis ```distance_from_center = abs(image_width/2 - position)```   
+3. If the horizontal position of the car was greater than image_width/2 than the car was considered to be left of center, otherwise right of center.  
+4. Finally, the distance from center was converted from pixels to meters by multiplying the number of pixels by ```3.7/700```
+
+Next I used the following code to calculate the radius of curvature for each lane line in meters:
+```
+ym_per_pix = 30./720 # meters per pixel in y dimension
+xm_per_pix = 3.7/700 # meteres per pixel in x dimension
+left_fit_cr = np.polyfit(lefty*ym_per_pix, leftx*xm_per_pix, 2)
+right_fit_cr = np.polyfit(righty*ym_per_pix, rightx*xm_per_pix, 2)
+left_curverad = ((1 + (2*left_fit_cr[0]*np.max(lefty) + left_fit_cr[1])**2)**1.5) \
+                             /np.absolute(2*left_fit_cr[0])
+right_curverad = ((1 + (2*right_fit_cr[0]*np.max(lefty) + right_fit_cr[1])**2)**1.5) \
+                                /np.absolute(2*right_fit_cr[0])
+```
+
+The final radius of curvature was taken by average the left and right curve radiuses.
+
+
 ## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
 
 ### Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
