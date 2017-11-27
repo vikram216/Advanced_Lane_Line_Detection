@@ -59,9 +59,9 @@ In this step I defined a function **hawk_eye_view()** that applies ```cv2.warpPe
 
 In this step I converted the warped image to a different color space and created binary thresholded images which highlights only the lane lines. The following color spaces and thresholds are working fine for these images in identifying the lane lines.
 
-1. L Channel from LUV color space with a min threshold of 225 and max threshold of 255 is picking up the white lane lines perfectly but completely missing yellow lane lines.
+1. L Channel from LUV color space with a min threshold of 215 and max threshold of 255 is picking up the white lane lines perfectly but completely missing yellow lane lines.
 
-2. B Channel from LAB color space with a min threshold of 155 and max threshold of 200 is picking up the yellow lane lines perfectly but completely missing white lane lines.
+2. B Channel from LAB color space with a min threshold of 145 and max threshold of 200 is picking up the yellow lane lines perfectly but completely missing white lane lines.
 
 Hence I am using a combined binary threshold with a combination of both L channel from LUV and B channel from LAB color space to identify both the lane lines.
 
@@ -119,6 +119,7 @@ In order to make the output smooth I chose to average the coefficients of the po
 ![Project outcome](Folder_for_writeup/result.gif)
 
 Full video can be accessed through this [link](https://youtu.be/EXsJvmBQYmA)
+Result on the challenge video can be seen [here](https://youtu.be/jE2ZuO1amCY)
 
 ## Limitations
 
