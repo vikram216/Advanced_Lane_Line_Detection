@@ -1,9 +1,8 @@
-## Project 4: Advanced Lane Line Detection
+# Project 4: Advanced Lane Line Detection
 
----
 ![Final outcome](Folder_for_writeup/sample_result.gif)
 
-**Project Goals**
+## Project Goals
 
 The goal of this project is to develop a pipeline to process a video stream from the center camera of a car and output an annotated video which identifies:
 
@@ -29,6 +28,25 @@ I have used the following software/libraries in this project
 3. OpenCV
 4. Matplotlib
 5. Moviepy
+
+## Detailed explanation of the steps followed
+
+In this section I will go through each of the steps that I followed in this project 
+
+### Step 1: Distortion Correction
+
+In this step, I have used the chessboard images taken at different camera angles provided in **camera_cal** folder to find the imagepoints corresponding to the real world object points using the ```cv2.findChessboardCorners``` function. This imagepoints are used in ```cv2.calibrateCamera``` to derive 
+
+1. camera matrix (Intrinsic Parameters (focal length fx,fy and optical centers cx,cy))
+2. Distortion co-efficients (K1,K2, K3 for radial distortion and P1,P2 for tangential distortion)
+3. Rotation and translation vectors (Extrinsic Parameters)
+
+These Intrinsic and Extrinsic parameters are used in ```cv2.undistort``` to get an undistored image from the original image
+
+![Chess board Corners](Folder_for_writeup/Orig_and_corner_detected_img.png)   
+
+![Undistorted](Folder_for_writeup/Orig_and_undistorted_img.png)
+
 
 [//]: # (Image References)
 
