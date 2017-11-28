@@ -84,13 +84,13 @@ After fitting the polynomials I was able to calculate the position of the vehicl
 
 Next I used the following code to calculate the radius of curvature for each lane line in meters:
 ```
-ym_per_pix = 30./720 # meters per pixel in y dimension
-xm_per_pix = 3.7/700 # meteres per pixel in x dimension
+ym_per_pix = 21./720 # meters per pixel in y dimension
+xm_per_pix = 3.7/650 # meteres per pixel in x dimension
 left_fit_cr = np.polyfit(lefty*ym_per_pix, leftx*xm_per_pix, 2)
 right_fit_cr = np.polyfit(righty*ym_per_pix, rightx*xm_per_pix, 2)
-left_curverad = ((1 + (2*left_fit_cr[0]*np.max(lefty) + left_fit_cr[1])**2)**1.5) \
+left_curverad = ((1 + (2*left_fit_cr[0]*np.max(lefty)*ym_per_pix + left_fit_cr[1])**2)**1.5) \
                              /np.absolute(2*left_fit_cr[0])
-right_curverad = ((1 + (2*right_fit_cr[0]*np.max(lefty) + right_fit_cr[1])**2)**1.5) \
+right_curverad = ((1 + (2*right_fit_cr[0]*np.max(lefty)*ym_per_pix + right_fit_cr[1])**2)**1.5) \
                                 /np.absolute(2*right_fit_cr[0])
 ```
 
