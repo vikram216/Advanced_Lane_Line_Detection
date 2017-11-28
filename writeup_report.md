@@ -118,9 +118,9 @@ In order to make the output smooth I chose to average the coefficients of the po
 
 ![Project outcome](Folder_for_writeup/result.gif)
 
-Full video can be accessed through this [link](https://youtu.be/EXsJvmBQYmA)
+Full video can be accessed through this [link](https://youtu.be/oGwJa6cupBQ)
 
-Result on the challenge video can be seen [here](https://youtu.be/jE2ZuO1amCY)
+Result on the challenge video can be seen [here](https://youtu.be/NC4cQrCzSAM)
 
 ## Limitations
 
